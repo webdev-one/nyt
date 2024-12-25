@@ -30,7 +30,7 @@ def download(cookies_path: str = "cookies.txt"):
         pprint(source_filename)
 
         # Set destination path and check for existing
-        dest_filename = f"{date.today().year}{date.today().month}{date.today().day}"
+        dest_filename = f"{date.today().year}{date.today().month}{date.today().day}.pdf"
         dest_path = f"{out_dir}/{dest_filename}"
         if Path(dest_path).exists():
             pprint(f"{dest_path} already downloaded.")
