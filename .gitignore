@@ -1,9 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,python,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,python,visualstudiocode
 
-### custom ###
+### Custom categories ###
 
+# Cookies
 cookies.txt
+# Download/output directory
+output/
 
 ### macOS ###
 # General

@@ -13,8 +13,8 @@ puzzle_print_url_format = "https://www.nytimes.com/svc/crosswords/v2/puzzle/prin
 
 def download(cookies_path: str = "cookies.txt"):
     # params = {}
-    out_dir = f"{date.today().year}/{date.today().month}"
-    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    # out_dir = f"{date.today().year}/{date.today().month}"
+    Path("output").mkdir(parents=True, exist_ok=True)
 
     # response = requests.get(puzzles_endpoint, params).json()
     # pprint(response)
@@ -31,7 +31,7 @@ def download(cookies_path: str = "cookies.txt"):
 
         # Set destination path and check for existing
         dest_filename = f"{date.today().year}{date.today().month}{date.today().day}.pdf"
-        dest_path = f"{out_dir}/{dest_filename}"
+        dest_path = f"{"output"}/{dest_filename}"
         if Path(dest_path).exists():
             print(f"{dest_path} already downloaded.")
 
