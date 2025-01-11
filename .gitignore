@@ -7,6 +7,9 @@
 *cookies.txt
 # Download/output directory
 output/
+# Docker items
+*compose.yaml
+*Dockerfile
 
 ### macOS ###
 # General

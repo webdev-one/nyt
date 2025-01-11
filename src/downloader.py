@@ -7,6 +7,8 @@ import logging
 import requests
 
 
+DOCKER_OUTPUT_ROOT_FOLDER = "/nyt/output"
+
 DEBUG = False
 
 
@@ -22,7 +24,7 @@ puzzle_url_format = "https://www.nytimes.com/svc/crosswords/v2/puzzle/%s.pdf"
 def download(cookies_path: str = "cookies/cookies.txt"):
     # params = {}
     # out_dir = f"{date.today().year}/{date.today().month}"
-    Path("output").mkdir(parents=True, exist_ok=True)
+    Path(DOCKER_OUTPUT_ROOT_FOLDER).mkdir(parents=True, exist_ok=True)
 
     response = requests.get(puzzles_endpoint).json()["results"]
     logging.debug(f"{response[0]=}")
@@ -54,9 +56,13 @@ def download(cookies_path: str = "cookies/cookies.txt"):
         logging.debug(f"{source_filename=}")
 
         # Set destination path and check for existing
-        dest_path = f"{"output"}/{filename}.pdf"
+        dest_path = f"{DOCKER_OUTPUT_ROOT_FOLDER}/{filename}.pdf"
+        month_path = f"{DOCKER_OUTPUT_ROOT_FOLDER}/{date.today().strftime("%Y-%m")}/{filename}.pdf"
         if Path(dest_path).exists():
             print(f"{dest_path} already downloaded.")
+            exit()
+        elif Path(month_path).exists():
+            print(f"{month_path} already downloaded.")
             exit()
 
         # Download the puzzle file
