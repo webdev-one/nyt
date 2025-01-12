@@ -7,6 +7,7 @@ import logging
 import requests
 
 
+DOCKER_CLOUD = "/nyt/cloud"
 DOCKER_OUTPUT_ROOT_FOLDER = "/nyt/output"
 
 DEBUG = False
@@ -45,7 +46,7 @@ def download(cookies_path: str = "cookies/cookies.txt"):
                 puzzle_id = response[0]["puzzle_id"]
                 logging.debug(f"{puzzle_id=}")
             else:
-                print(f"Current puzzle is {response[0]["print_date"]}. Check again later.")
+                print(f"Current puzzle is {response[0]['print_date']}. Check again later.")
                 exit()
         else:
             print("No valid response received from JSON.")
@@ -57,12 +58,13 @@ def download(cookies_path: str = "cookies/cookies.txt"):
 
         # Set destination path and check for existing
         dest_path = f"{DOCKER_OUTPUT_ROOT_FOLDER}/{filename}.pdf"
-        month_path = f"{DOCKER_OUTPUT_ROOT_FOLDER}/{date.today().strftime("%Y-%m")}/{filename}.pdf"
         if Path(dest_path).exists():
             print(f"{dest_path} already downloaded.")
             exit()
-        elif Path(month_path).exists():
-            print(f"{month_path} already downloaded.")
+        elif Path(f"{DOCKER_CLOUD}/{filename}.pdf").exists():
+            print("Already in cloud.")
+        elif Path(f"{DOCKER_CLOUD}/{date.today().strftime('%Y-%m')}/{filename}.pdf").exists():
+            print("Already in cloud and sorted.")
             exit()
 
         # Download the puzzle file
